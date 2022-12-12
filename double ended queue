@@ -1,0 +1,150 @@
+#include <iostream> 
+using namespace std; 
+template<class T> 
+struct node 
+{ 
+ T data; 
+ node* next; 
+}; 
+template<class T> 
+class dequeue { 
+ private: 
+ node<T>* head=NULL; 
+ node<T>* end=NULL; 
+ public: 
+ 
+int push_back(T data){ 
+ node<T>* temp=new node<T>(); 
+ temp->data=data; 
+ temp->next=NULL; 
+ end=temp; 
+ if (head==NULL) 
+ { 
+ head=temp; 
+ return 0; 
+ } 
+ 
+ node<T>* temp1=head; 
+ while (temp1->next!=NULL) 
+ { 
+ temp1=temp1->next; 
+ } 
+ temp1->next=temp; 
+ 
+ return 0; 
+} 
+void pop_back() 
+{ 
+ node<T>* elem=head; 
+ if(head==NULL) 
+ { 
+ cout<<"empty"; 
+ } 
+ else if(head->next==NULL) 
+ { 
+ delete head; 
+ head=NULL; 
+ end=NULL; 
+ } 
+ else{ 
+ while (elem->next!=end) 
+ { 
+ elem=elem->next; 
+ } 
+ elem->next=NULL; 
+ delete end; 
+ end=elem; 
+ } 
+ 
+} 
+void display() 
+{ node<T>* temp=head; 
+ if(head==NULL){ 
+ cout<<"empty"<<endl; 
+ } 
+ else{ 
+ while (temp!=NULL) 
+ { 
+ cout<<temp->data<<" "; 
+ temp=temp->next; 
+ } 
+ } 
+ 
+} 
+void pushfront(T data) 
+{ 
+ node<T>* temp=new node<T>(); 
+ temp->data=data; 
+ 
+ if(head==NULL) 
+ { 
+ head=temp; 
+ end=temp; 
+ temp->next=NULL; 
+ } 
+ else{ 
+ temp->next=head;//connect temp to head locating element 
+ head=temp; 
+ } 
+} 
+void popfront() 
+{ node<T>* prevelem=head; 
+ node<T>* temp;//deleting elem 
+ temp=head; 
+ head=prevelem->next; 
+ delete temp; 
+} 
+void front(){ 
+ cout<<head->data<<endl; 
+} 
+void rear(){ 
+ cout<<end->data<<endl; 
+} 
+}; 
+int main(){ 
+ 
+ dequeue<int> *obj=new dequeue<int>() ; 
+ int n,i=1; 
+ int num,posi; 
+ while (i>0) 
+ { 
+ cout<<"enter case number\n 1.pushfront 2.popfront 3.pushback 4.popback 5.front 6.rear 7.isempty\n"; 
+ cin>>n; 
+ switch (n) 
+ { 
+ case 1: 
+ cout<<"enter elemt\n"; 
+ cin>>num; 
+ obj->pushfront(num); 
+ obj->display(); 
+ break; 
+ 
+ case 2: 
+ obj->popfront(); 
+ obj->display(); 
+ break; 
+ case 3: 
+ cout<<"enter elemt\n"; 
+ cin>>num; 
+ obj->push_back(num); 
+ obj->display(); 
+ break; 
+ case 4: 
+ obj->pop_back(); 
+ obj->display(); 
+ break; 
+ case 5: 
+ obj->front(); 
+ obj->display(); 
+ break; 
+ case 6: 
+ obj->rear(); 
+ case 7: 
+ obj->display(); 
+ break; 
+ 
+ default: 
+ break; 
+ } 
+ } 
+ } 
