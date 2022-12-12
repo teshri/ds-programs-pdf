@@ -260,7 +260,7 @@ public:
   Node<T> *search(T ele)
   {
     if (this->isEmpty())
-      return nullptr;
+      return 0;
     Node<T> *temp = head;
     while (temp != NULL)
     {
@@ -268,7 +268,7 @@ public:
         return temp;
       temp = temp->ptr;
     }
-    return nullptr;
+    return 0;
   }
 
   // Calculates the number of nodes - O(n)
@@ -328,7 +328,7 @@ int main(void)
     case 1:
       cout << "\nEnter Search Element: ";
       cin >> ele;
-      if (list.search(ele) != nullptr)
+      if (list.search(ele) != 0)
         cout << "Element " << ele << " found...\n";
       else
         cout << "Element not found or List is Empty...\n";
