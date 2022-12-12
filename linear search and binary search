@@ -1,0 +1,73 @@
+/** 1. write a program to search an element from a list , Give user the option to perform Linear or 
+Binary search .Use template function
+
+
+
+*/
+
+
+#include<iostream> 
+using namespace std; 
+template <class t1> 
+int LinearSearch(t1 arr[],int n,t1 key){ 
+ for(int i=0;i<n;i++){ 
+ if(arr[i]==key){ 
+ return i; 
+ } 
+ } 
+ return -1; 
+} 
+template <class t2> 
+int BinarySearch(t2 arr[],int n,t2 key){ 
+int s=0; 
+int e=n; 
+while(s<=e){ 
+ int mid=(s+e)/2; 
+ if(arr[mid]==key){ 
+ return mid; 
+ } 
+ else if(arr[mid]>key){ 
+ e=mid-1; 
+ } 
+ else if(arr[mid]<key){ 
+ s=mid+1; 
+ } 
+} 
+ return -1; 
+} 
+int menu(){ 
+ cout<<"Choose one of the option : \n"; 
+ cout<<"1.Linear Search\n"; 
+ cout<<"2.Binary Search\n"; 
+ cout<<"Enter your choice : "; 
+ int ch; 
+ cin>>ch; 
+ return ch; 
+} 
+int main(){ 
+ int ch=menu(); 
+ cout<<"Enter the size of the array : "; 
+ int n; 
+ cin>>n; 
+ int array[n]; 
+ cout<<"\nEnter the elements of array (Note : Please enter a sorted array for binary search ) : 
+\n"; 
+ for(int i=0;i<n;i++){ 
+ cin>>array[i]; 
+ } 
+ cout<<"\n The array you entered is : "; 
+ for(int i=0;i<n;i++){ 
+ cout<<array[i]<<" "; 
+ } 
+ cout<<"\nEnter the element to be searched : "; 
+ int key; 
+ cin>>key; 
+ 
+ if(ch==2){ 
+ cout<<"The position of "<<key<<" after binary search is "<<BinarySearch(array,n,key)<<endl; 
+ } 
+ if(ch==1){ 
+ cout<<"The position of "<<key<<" after linear search is "<<LinearSearch(array,n,key)<<endl; 
+ } 
+ return 0; 
+} 
