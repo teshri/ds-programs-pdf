@@ -8,139 +8,126 @@
  *  Written by Sudipto Ghosh for the University of Delhi
  */
 
-// main.cpp
-#include "singlyLinkedList.hpp"
+#include <iostream> 
+using namespace std; 
+class Node 
+{ 
+public: 
+ int data; 
+ Node *next; 
+}; 
+Node *top; 
+void push(int data) 
+{ 
 
-using namespace std;
-
-void getch();
-void clrscr();
-
-template <class T>
-class Stack
-{
-protected:
-  SinglyLinkedList<T> list;
-
-public:
-  bool push(T ele)
-  {
-    this->list.insertFront(ele);
-    return true;
-  }
-
-  T pop()
-  {
-    if (this->isEmpty())
-    {
-      cout << "ERROR: Stack Underflow\n";
-      return (T)(NULL);
-    }
-    T ele = this->list.getHead();
-    this->list.deleteFront();
-    return ele;
-  }
-
-  T top()
-  {
-    if (this->isEmpty())
-    {
-      cout << "Stack Empty";
-      return (T)(NULL);
-    }
-    return this->list.getHead();
-  }
-
-  bool isEmpty()
-  {
-    return this->list.isEmpty();
-  }
-
-  void clear()
-  {
-    while (!this->isEmpty())
-      this->pop();
-  }
-
-  void display()
-  {
-    if (this->isEmpty())
-    {
-      cout << "Stack Empty";
-      return;
-    }
-    int i;
-    cout << "Stack: ";
-    this->list.display();
-    return;
-  }
-};
-
-int main(void)
-{
-  int el, res, choice;
-  Stack<int> stack;
-  do
-  {
-    cout << "\tStack - SLList\n"
-         << "=============================\n"
-         << "  (1) Push     (2) Pop\n"
-         << "  (3) Top      (4) Clear\n"
-         << "  (5) Display  (0) Exit\n\n";
-    cout << "Enter Choice: ";
-    cin >> choice;
-    switch (choice)
-    {
-    case 1:
-      cout << "\nEnter Element: ";
-      cin >> el;
-      res = stack.push(el);
-      if (res)
-      {
-        cout << "\nPushed " << el << "...\n";
-        stack.display();
-      }
-      break;
-    case 2:
-      res = stack.pop();
-      if (res)
-      {
-        cout << "\nPopped " << res << "...\n";
-        stack.display();
-      }
-      break;
-    case 3:
-      cout << "\nTop Element: "
-           << stack.top() << endl;
-      break;
-    case 4:
-      stack.clear();
-      break;
-    case 5:
-      stack.display();
-    default:
-      break;
-    }
-    getch();
-    clrscr();
-  } while (choice != 0);
-  return 0;
-}
-
-void getch()
-{
-  cout << "\nPress any key to continue...";
-  cin.ignore();
-  cin.get();
-  return;
-}
-
-void clrscr()
-{
-#ifdef _WIN32
-  system("cls");
-#elif __unix__
-  system("clear");
-#endif
-  return;
+ Node *temp = new Node(); 
+ 
+ if (!temp) 
+ { 
+ cout << "\nStack Overflow"; 
+ exit(1); 
+ } 
+ temp->data = data; 
+ temp->next = top; 
+ top = temp; 
+} 
+int isEmpty() 
+{ 
+ return top == NULL; 
+} 
+int peek() 
+{ 
+ if (!isEmpty()) 
+ return top->data; 
+ else 
+ cout << "\nStack is empty! "; 
+ return -1; 
+} 
+void pop() 
+{ 
+ if (top == NULL) 
+ { 
+ cout << "\nStack Underflow" << endl; 
+ exit(1); 
+ } 
+ else 
+ { 
+ top = top->next; 
+ } 
+} 
+void display() 
+{ 
+ Node *temp; 
+ if (top == NULL) 
+ { 
+ cout << "\nStack Underflow"; 
+ exit(1); 
+ } 
+ else 
+ { 
+ temp = top; 
+ while (temp != NULL) 
+ { 
+ cout << temp->data << "-> "; 
+ temp = temp->next; 
+ } 
+ } 
+} 
+int main() 
+{ 
+ Node *head = NULL; 
+ int ch, element; 
+ cout << "---------------- Stack Operations -------------" << endl; 
+ bool stop = false; 
+ do 
+ { 
+ cout << "\n\nPush-- (1)\tPop -- (2)\nDisplay-- (3)\tPeek-- (4)\nisEmpty-- (5)\tExit--(6)\n "; 
+ cout << "\nEnter your choice: "; 
+ cin >> ch; 
+ switch (ch) 
+ { 
+ case 1: 
+ cout << "\nEnter the element : "; 
+ cin >> element; 
+ push(element); 
+ cout << element << " is pushed\n "; 
+ break; 
+ case 2: 
+ if (peek() != -1) 
+ { 
+ cout << peek() << " is Popped\n "; 
+ pop(); 
+ } 
+ else 
+ { 
+ pop(); 
+ } 
+ break; 
+ case 3: 
+ cout << "\nCreated stack is: "; 
+ display(); 
+ break; 
+ case 4: 
+ cout << "\nTop element is : "; 
+ cout << peek(); 
+ break; 
+ case 5: 
+ if (isEmpty() == 0) 
+ { 
+ cout << "\nStack is not empty "; 
+ } 
+ else 
+ { 
+ cout << "\nStack is empty "; 
+ } 
+ break; 
+ case 6: 
+ stop = true; 
+ break; 
+ default: 
+ cout << "Invalid option ! "; 
+ break; 
+ } 
+ } while (stop != true); 
+ return 0; 
 }
